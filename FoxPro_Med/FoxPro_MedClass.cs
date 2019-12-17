@@ -694,17 +694,17 @@ namespace FoxPro_Med
 			X509Store store = new X509Store(StoreName.My, StoreLocation.CurrentUser); // Создаем объект хранилища
 			X509Certificate2Collection scollection;
 			// Получаем сертификат ОТПРАВИТЕЛЯ (НАШ)
-			do
-			{
-				store.Open(OpenFlags.OpenExistingOnly | OpenFlags.ReadOnly); // Открываем хранилище
-				scollection = X509Certificate2UI.SelectFromCollection(store.Certificates, "Выберите сертификат ОТПРАВИТЕЛЯ (НАШ)", "Выберите сертификат ОТПРАВИТЕЛЯ", X509SelectionFlag.SingleSelection); // Выбор
-			} while (scollection.Count == 0); // Если сертификат не был выбран - повторяем
-			userCert = scollection[0]; // Записываем сертификат
+			store.Open(OpenFlags.OpenExistingOnly | OpenFlags.ReadOnly); // Открываем хранилище
+			scollection = X509Certificate2UI.SelectFromCollection(store.Certificates, "Выберите сертификат ОТПРАВИТЕЛЯ (НАШ)", "Выберите сертификат ОТПРАВИТЕЛЯ", X509SelectionFlag.SingleSelection); // Выбор
 
-			// Дальше пишем серийники и сохраняем настройки
-			Properties.Settings.Default.userCertSN = userCert.SerialNumber;
-			Properties.Settings.Default.Save();
+			if (scollection.Count > 0)
+			{ 
+				userCert = scollection[0]; // Записываем сертификат
 
+				// Дальше пишем серийники и сохраняем настройки
+				Properties.Settings.Default.userCertSN = userCert.SerialNumber;
+				Properties.Settings.Default.Save();
+			}
 			return getUserCertificateName();
 		}
 
@@ -717,17 +717,17 @@ namespace FoxPro_Med
 			X509Store store = new X509Store(StoreName.My, StoreLocation.CurrentUser); // Создаем объект хранилища
 			X509Certificate2Collection scollection;
 			// Получаем сертификат ОТПРАВИТЕЛЯ (НАШ)
-			do
+			store.Open(OpenFlags.OpenExistingOnly | OpenFlags.ReadOnly); // Открываем хранилище
+			scollection = X509Certificate2UI.SelectFromCollection(store.Certificates, "Выберите сертификат ПОЛУЧАТЕЛЯ (ЧЕСТНЫЙ ЗНАК)", "Выберите сертификат ПОЛУЧАТЕЛЯ", X509SelectionFlag.SingleSelection); // Выбор
+
+			if (scollection.Count > 0)
 			{
-				store.Open(OpenFlags.OpenExistingOnly | OpenFlags.ReadOnly); // Открываем хранилище
-				scollection = X509Certificate2UI.SelectFromCollection(store.Certificates, "Выберите сертификат ПОЛУЧАТЕЛЯ (ЧЕСТНЫЙ ЗНАК)", "Выберите сертификат ПОЛУЧАТЕЛЯ", X509SelectionFlag.SingleSelection); // Выбор
-			} while (scollection.Count == 0); // Если сертификат не был выбран - повторяем
-			certForeign = scollection[0]; // Записываем сертификат
+				certForeign = scollection[0]; // Записываем сертификат
 
-			// Дальше пишем серийники и сохраняем настройки
-			Properties.Settings.Default.certForeignSN = certForeign.SerialNumber;
-			Properties.Settings.Default.Save();
-
+				// Дальше пишем серийники и сохраняем настройки
+				Properties.Settings.Default.certForeignSN = certForeign.SerialNumber;
+				Properties.Settings.Default.Save();
+			}
 			return getCertificateForeignName();
 		}
 

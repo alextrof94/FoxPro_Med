@@ -53,6 +53,12 @@
 			this.label8 = new System.Windows.Forms.Label();
 			this.buLogDir = new System.Windows.Forms.Button();
 			this.buTempDir = new System.Windows.Forms.Button();
+			this.tbProxyAddress = new System.Windows.Forms.TextBox();
+			this.label9 = new System.Windows.Forms.Label();
+			this.label10 = new System.Windows.Forms.Label();
+			this.nudProxyPort = new System.Windows.Forms.NumericUpDown();
+			this.cbProxy = new System.Windows.Forms.CheckBox();
+			((System.ComponentModel.ISupportInitialize)(this.nudProxyPort)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// buSave
@@ -60,9 +66,9 @@
 			this.buSave.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.buSave.Location = new System.Drawing.Point(413, 322);
+			this.buSave.Location = new System.Drawing.Point(413, 367);
 			this.buSave.Name = "buSave";
-			this.buSave.Size = new System.Drawing.Size(152, 53);
+			this.buSave.Size = new System.Drawing.Size(152, 62);
 			this.buSave.TabIndex = 0;
 			this.buSave.Text = "Сохранить";
 			this.buSave.UseVisualStyleBackColor = true;
@@ -148,9 +154,9 @@
 			// 
 			this.buCertOur.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-			this.buCertOur.Location = new System.Drawing.Point(15, 322);
+			this.buCertOur.Location = new System.Drawing.Point(15, 367);
 			this.buCertOur.Name = "buCertOur";
-			this.buCertOur.Size = new System.Drawing.Size(193, 53);
+			this.buCertOur.Size = new System.Drawing.Size(193, 62);
 			this.buCertOur.TabIndex = 9;
 			this.buCertOur.Text = "Выбрать НАШ сертификат";
 			this.buCertOur.UseVisualStyleBackColor = true;
@@ -192,9 +198,9 @@
 			// 
 			this.buCertForeign.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-			this.buCertForeign.Location = new System.Drawing.Point(214, 322);
+			this.buCertForeign.Location = new System.Drawing.Point(214, 367);
 			this.buCertForeign.Name = "buCertForeign";
-			this.buCertForeign.Size = new System.Drawing.Size(193, 53);
+			this.buCertForeign.Size = new System.Drawing.Size(193, 62);
 			this.buCertForeign.TabIndex = 14;
 			this.buCertForeign.Text = "Выбрать сертификат ЧЗ";
 			this.buCertForeign.UseVisualStyleBackColor = true;
@@ -214,7 +220,7 @@
 			// 
 			this.tbUserCert.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.tbUserCert.Location = new System.Drawing.Point(116, 270);
+			this.tbUserCert.Location = new System.Drawing.Point(116, 309);
 			this.tbUserCert.Name = "tbUserCert";
 			this.tbUserCert.Size = new System.Drawing.Size(449, 20);
 			this.tbUserCert.TabIndex = 17;
@@ -222,7 +228,7 @@
 			// label4
 			// 
 			this.label4.AutoSize = true;
-			this.label4.Location = new System.Drawing.Point(12, 273);
+			this.label4.Location = new System.Drawing.Point(12, 312);
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(97, 13);
 			this.label4.TabIndex = 16;
@@ -232,7 +238,7 @@
 			// 
 			this.tbCertForeign.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.tbCertForeign.Location = new System.Drawing.Point(116, 296);
+			this.tbCertForeign.Location = new System.Drawing.Point(116, 335);
 			this.tbCertForeign.Name = "tbCertForeign";
 			this.tbCertForeign.Size = new System.Drawing.Size(449, 20);
 			this.tbCertForeign.TabIndex = 19;
@@ -240,7 +246,7 @@
 			// label6
 			// 
 			this.label6.AutoSize = true;
-			this.label6.Location = new System.Drawing.Point(12, 299);
+			this.label6.Location = new System.Drawing.Point(12, 338);
 			this.label6.Name = "label6";
 			this.label6.Size = new System.Drawing.Size(89, 13);
 			this.label6.TabIndex = 18;
@@ -304,11 +310,77 @@
 			this.buTempDir.UseVisualStyleBackColor = true;
 			this.buTempDir.Click += new System.EventHandler(this.buTempDir_Click);
 			// 
+			// tbProxyAddress
+			// 
+			this.tbProxyAddress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.tbProxyAddress.Location = new System.Drawing.Point(116, 249);
+			this.tbProxyAddress.Name = "tbProxyAddress";
+			this.tbProxyAddress.Size = new System.Drawing.Size(449, 20);
+			this.tbProxyAddress.TabIndex = 27;
+			// 
+			// label9
+			// 
+			this.label9.AutoSize = true;
+			this.label9.Location = new System.Drawing.Point(12, 252);
+			this.label9.Name = "label9";
+			this.label9.Size = new System.Drawing.Size(69, 13);
+			this.label9.TabIndex = 26;
+			this.label9.Text = "Proxy адрес:";
+			// 
+			// label10
+			// 
+			this.label10.AutoSize = true;
+			this.label10.Location = new System.Drawing.Point(12, 276);
+			this.label10.Name = "label10";
+			this.label10.Size = new System.Drawing.Size(62, 13);
+			this.label10.TabIndex = 28;
+			this.label10.Text = "Proxy порт:";
+			// 
+			// nudProxyPort
+			// 
+			this.nudProxyPort.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.nudProxyPort.Location = new System.Drawing.Point(116, 275);
+			this.nudProxyPort.Maximum = new decimal(new int[] {
+            65535,
+            0,
+            0,
+            0});
+			this.nudProxyPort.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.nudProxyPort.Name = "nudProxyPort";
+			this.nudProxyPort.Size = new System.Drawing.Size(449, 20);
+			this.nudProxyPort.TabIndex = 29;
+			this.nudProxyPort.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			// 
+			// cbProxy
+			// 
+			this.cbProxy.AutoSize = true;
+			this.cbProxy.Location = new System.Drawing.Point(15, 223);
+			this.cbProxy.Name = "cbProxy";
+			this.cbProxy.Size = new System.Drawing.Size(127, 17);
+			this.cbProxy.TabIndex = 30;
+			this.cbProxy.Text = "Использовать proxy";
+			this.cbProxy.UseVisualStyleBackColor = true;
+			// 
 			// FormSettings
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(577, 388);
+			this.ClientSize = new System.Drawing.Size(577, 442);
+			this.Controls.Add(this.cbProxy);
+			this.Controls.Add(this.nudProxyPort);
+			this.Controls.Add(this.label10);
+			this.Controls.Add(this.tbProxyAddress);
+			this.Controls.Add(this.label9);
 			this.Controls.Add(this.buTempDir);
 			this.Controls.Add(this.buLogDir);
 			this.Controls.Add(this.tbTempDir);
@@ -337,6 +409,7 @@
 			this.Name = "FormSettings";
 			this.Text = "Settings FoxPro_Med";
 			this.Shown += new System.EventHandler(this.FormSettings_Shown);
+			((System.ComponentModel.ISupportInitialize)(this.nudProxyPort)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -369,5 +442,10 @@
 		private System.Windows.Forms.Label label8;
 		private System.Windows.Forms.Button buLogDir;
 		private System.Windows.Forms.Button buTempDir;
+		private System.Windows.Forms.TextBox tbProxyAddress;
+		private System.Windows.Forms.Label label9;
+		private System.Windows.Forms.Label label10;
+		private System.Windows.Forms.NumericUpDown nudProxyPort;
+		private System.Windows.Forms.CheckBox cbProxy;
 	}
 }

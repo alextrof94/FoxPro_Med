@@ -35,5 +35,14 @@
     <Setting Name="tempDir" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="proxyAddress" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="proxyPort" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">8080</Value>
+    </Setting>
+    <Setting Name="proxyEnabled" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

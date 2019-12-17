@@ -33,6 +33,9 @@ namespace FoxPro_Med
 			Properties.Settings.Default.logEnabled = cbLogs.Checked;
 			Properties.Settings.Default.tempDir = tbTempDir.Text;
 			Properties.Settings.Default.logDir = tbLogDir.Text;
+			Properties.Settings.Default.proxyEnabled = cbProxy.Checked;
+			Properties.Settings.Default.proxyAddress = tbProxyAddress.Text;
+			Properties.Settings.Default.proxyPort = (int)nudProxyPort.Value;
 			Properties.Settings.Default.Save();
 			buSave.FlatStyle = FlatStyle.Standard;
 		}
@@ -101,6 +104,9 @@ namespace FoxPro_Med
 			cbLogs.Checked = Properties.Settings.Default.logEnabled;
 			tbTempDir.Text = Properties.Settings.Default.tempDir;
 			tbLogDir.Text = Properties.Settings.Default.logDir;
+			cbProxy.Checked = Properties.Settings.Default.proxyEnabled;
+			tbProxyAddress.Text = Properties.Settings.Default.proxyAddress;
+			nudProxyPort.Value = Properties.Settings.Default.proxyPort;
 			updateCertsUI();
 		}
 

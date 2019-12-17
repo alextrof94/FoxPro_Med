@@ -471,6 +471,14 @@ namespace FoxPro_Med
 						stream.Write(data, 0, data.Length);
 					}
 				}
+
+				if (Properties.Settings.Default.proxyEnabled)
+				{
+					WebProxy proxy = new WebProxy(Properties.Settings.Default.proxyAddress, Properties.Settings.Default.proxyPort);
+					proxy.BypassProxyOnLocal = false;
+					request.Proxy = proxy;
+				}
+
 				HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 				string responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
 				return responseString;
@@ -704,6 +712,11 @@ namespace FoxPro_Med
 				// Дальше пишем серийники и сохраняем настройки
 				Properties.Settings.Default.userCertSN = userCert.SerialNumber;
 				Properties.Settings.Default.Save();
+			} else
+			{
+				// обнуляем
+				Properties.Settings.Default.userCertSN = null;
+				Properties.Settings.Default.Save();
 			}
 			return getUserCertificateName();
 		}
@@ -726,6 +739,11 @@ namespace FoxPro_Med
 
 				// Дальше пишем серийники и сохраняем настройки
 				Properties.Settings.Default.certForeignSN = certForeign.SerialNumber;
+				Properties.Settings.Default.Save();
+			} else
+			{
+				// обнуляем
+				Properties.Settings.Default.certForeignSN = null;
 				Properties.Settings.Default.Save();
 			}
 			return getCertificateForeignName();

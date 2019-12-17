@@ -154,5 +154,41 @@ namespace FoxPro_Med.Properties {
                 this["tempDir"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string proxyAddress {
+            get {
+                return ((string)(this["proxyAddress"]));
+            }
+            set {
+                this["proxyAddress"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("8080")]
+        public int proxyPort {
+            get {
+                return ((int)(this["proxyPort"]));
+            }
+            set {
+                this["proxyPort"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool proxyEnabled {
+            get {
+                return ((bool)(this["proxyEnabled"]));
+            }
+            set {
+                this["proxyEnabled"] = value;
+            }
+        }
     }
 }

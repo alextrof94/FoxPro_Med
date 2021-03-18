@@ -78,11 +78,13 @@ namespace FoxPro_Med
 
 		Document getIncomeDocument(ResponseDocumentList resp, int index);
 		ResponseDocumentList getIncomeDocuments(int start_from = 0, int count = 10, DocFilter filter = null);
+		ResponseDocumentListNew getIncomeDocumentsNew(int count = 10, DocFilter filter = null, object[] next_page_key = null);
 		byte[] downloadFile(string document_id);
 		string getDocumentLinkById(string document_id);
 		byte[] webdavDownload(string link);
 
 		ResponseDocumentList getOutcomeDocuments(int start_from = 0, int count = 10, DocFilter filter = null);
+		ResponseDocumentListNew getOutcomeDocumentsNew(int count = 10, DocFilter filter = null, object[] next_page_key = null);
 		string uploadDocument(byte[] fileIn);
 		string uploadDocumentFromUTF8String(string fileUTF8String);
 		string getUploadedDocumentSignatureById(string document_id);
@@ -997,6 +999,66 @@ namespace FoxPro_Med
 			return null;
 		}
 
+
+		/// <summary>
+		/// Получает от ЧЗ список входящих документов по витринам
+		/// </summary>
+		/// <param name="count">Сколько документов получить</param>
+		/// <param name="filter">Фильтер отбора документов</param>
+		/// <param name="next_page_key">Заполняется из ответа на предыдущий запрос при запросе следующих данных</param>
+		/// <returns>Массив документов</returns>
+		public ResponseDocumentListNew getIncomeDocumentsNew(int count = 10, DocFilter filter = null, object[] next_page_key = null)
+		{
+			try
+			{
+				URL_HTTP = Properties.Settings.Default.urlHttp;
+				URL_HTTPS = Properties.Settings.Default.urlHttps;
+				// Получаю токен
+				string token = getToken(true);
+
+				// Создаю и заполняю тело запроса (у меня с помощью описанного класса для сериализации, у Вас может быть хоть простая генерация нужной строки конкатенацией)
+				RequestDocumentListNew req = new RequestDocumentListNew();
+				if (filter == null)
+					filter = new DocFilter();
+				req.filter = filter;
+				if (next_page_key != null)
+					req.next_page_key = next_page_key;
+				req.count = count;
+
+				JsonSerializerSettings settings = new JsonSerializerSettings();
+				settings.NullValueHandling = NullValueHandling.Ignore;
+				settings.DefaultValueHandling = DefaultValueHandling.Ignore;
+				string body = JsonConvert.SerializeObject(req, settings);// "{\"filter\":{},\"start_from\":0,\"count\": 10}";
+
+				// Создаю и заполняю массив хидеров
+				List<string> headers = new List<string>();
+				headers.Add("Content-Type: application/json");
+				headers.Add("Authorization: token " + token);
+				headers.Add("Host: " + URL_HTTPS.Substring(URL_HTTPS.LastIndexOf("/") + 1)); // для тестового контура получится "api.stage.mdlp.crpt.ru", для песочницы "api.sb.mdlp.crpt.ru"
+				headers.Add("Cache-Control: no-cache");
+
+				// Делаю запрос передавая в него тип запроса, URL, шапку, тело
+				string str = doRequest("POST", URL_HTTPS + "/api/v1/showcase/income", headers.ToArray(), body);
+				// Десериализую строку ответа, превращая ее в класс
+				ResponseDocumentListNew res = jss.Deserialize<ResponseDocumentListNew>(str);
+
+				Log("\r\n--- Income Docs: " + str + "\r\n");
+
+				return res;
+			}
+			catch (WebException ex)
+			{
+				setError((ex.Response as HttpWebResponse).StatusCode + " " + (ex.Response as HttpWebResponse).StatusDescription + " " + ex.Message, "getIncomeDocumentsNew", "WebException");
+				Log("getIncomeDocumentsNew: " + ex.Message + ex.StackTrace);
+			}
+			catch (Exception ex)
+			{
+				setError(ex.Message, "getIncomeDocumentsNew");
+				Log("getIncomeDocumentsNew: " + ex.Message + ex.StackTrace);
+			}
+			return null;
+		}
+
 		/// <summary>
 		/// Скачивание файла по идентификату
 		/// </summary>
@@ -1174,6 +1236,66 @@ namespace FoxPro_Med
 			{
 				setError(ex.Message, "getOutcomeDocuments");
 				Log("getOutcomeDocuments: " + ex.Message + ex.StackTrace);
+			}
+			return null;
+		}
+
+
+		/// <summary>
+		/// Получает от ЧЗ список исходящих документов по витринам
+		/// </summary>
+		/// <param name="count">Сколько документов получить</param>
+		/// <param name="filter">Фильтер отбора документов</param>
+		/// <param name="next_page_key">Заполняется из ответа на предыдущий запрос при запросе следующих данных</param>
+		/// <returns>Массив документов</returns>
+		public ResponseDocumentListNew getOutcomeDocumentsNew(int count = 10, DocFilter filter = null, object[] next_page_key = null)
+		{
+			try
+			{
+				URL_HTTP = Properties.Settings.Default.urlHttp;
+				URL_HTTPS = Properties.Settings.Default.urlHttps;
+				// Получаю токен
+				string token = getToken(true);
+
+				// Создаю и заполняю тело запроса (у меня с помощью описанного класса для сериализации, у Вас может быть хоть простая генерация нужной строки конкатенацией)
+				RequestDocumentListNew req = new RequestDocumentListNew();
+				if (filter == null)
+					filter = new DocFilter();
+				req.filter = filter;
+				if (next_page_key != null)
+					req.next_page_key = next_page_key;
+				req.count = count;
+
+				JsonSerializerSettings settings = new JsonSerializerSettings();
+				settings.NullValueHandling = NullValueHandling.Ignore;
+				settings.DefaultValueHandling = DefaultValueHandling.Ignore;
+				string body = JsonConvert.SerializeObject(req, settings);// "{\"filter\":{},\"start_from\":0,\"count\": 10}";
+
+				// Создаю и заполняю массив хидеров
+				List<string> headers = new List<string>();
+				headers.Add("Content-Type: application/json");
+				headers.Add("Authorization: token " + token);
+				headers.Add("Host: " + URL_HTTPS.Substring(URL_HTTPS.LastIndexOf("/") + 1)); // для тестового контура получится "api.stage.mdlp.crpt.ru", для песочницы "api.sb.mdlp.crpt.ru"
+				headers.Add("Cache-Control: no-cache");
+
+				// Делаю запрос передавая в него тип запроса, URL, шапку, тело
+				string str = doRequest("POST", URL_HTTPS + "/api/v1/showcase/outcome", headers.ToArray(), body);
+				// Десериализую строку ответа, превращая ее в класс
+				ResponseDocumentListNew res = jss.Deserialize<ResponseDocumentListNew>(str);
+
+				Log("\r\n--- Outcome Docs: " + str + "\r\n");
+
+				return res;
+			}
+			catch (WebException ex)
+			{
+				setError((ex.Response as HttpWebResponse).StatusCode + " " + (ex.Response as HttpWebResponse).StatusDescription + " " + ex.Message, "getOutcomeDocumentsNew", "WebException");
+				Log("getOutcomeDocumentsNew: " + ex.Message + ex.StackTrace);
+			}
+			catch (Exception ex)
+			{
+				setError(ex.Message, "getIncomeDocumentsNew");
+				Log("getOutcomeDocumentsNew: " + ex.Message + ex.StackTrace);
 			}
 			return null;
 		}

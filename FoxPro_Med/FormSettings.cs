@@ -125,7 +125,7 @@ namespace FoxPro_Med
 					tbLogDir.Text = fbd.SelectedPath;
 				try
 				{
-					File.AppendAllText(tbTempDir.Text + "\\logFoxProMed.txt", "\r\nTESTED\r\n");
+					File.AppendAllText(tbLogDir.Text + "\\logFoxProMed.txt", "\r\nTESTED\r\n");
 					test = true;
 				}
 				catch (Exception ex)
